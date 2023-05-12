@@ -1,0 +1,13 @@
+Categories: nomCategorie
+Produits:nomproduit,prix,details
+Stock: idproduit,quantite,unite
+
+ Une liste des produits avec catégorie avec une recherche simple et
+ multicritère
+    -Categories
+    -Prix min
+    -Prix max
+    
+
+ Une fiche de produit avec la quantité en stock
+ On peut ajouter les produits en panier (avec ou sans login)
