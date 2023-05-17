@@ -5,16 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Stockactuel extends Model
 {
     use HasFactory;
-    protected $primaryKey='iduser';
+    protected $primaryKey='idstockactuel';
     public $timestamps = false;
+    protected $fillable = ['idlaptop','quantite'];
 
-    protected $fillable = [
-        'nameuser',
-        'emailuser',
-        'mdpuser',
-        'idmagasin',
-    ];
 }

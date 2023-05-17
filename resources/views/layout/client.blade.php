@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>frontoffice</title>
+  <title>Magasin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -37,14 +37,14 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Frontoffice</span>
+        <span class="d-none d-lg-block">Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="GET" action="{{ route('search') }}">
-        <input type="text" name="mot" placeholder="Search" title="Enter search keyword">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -58,24 +58,13 @@
           </a>
         </li><!-- End Search Icon-->
 
-    </nav><!-- End Icons Navigation -->
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        @if(!empty($users))
-        @foreach ($users as $user)
         <li class="nav-item dropdown pe-3">
+
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ $user->nameuser }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">Utilisateur</span>
           </a><!-- End Profile Iamge Icon -->
-        @endforeach
+          @foreach($users as $user)
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ $user->nameuser }}</h6>
@@ -86,22 +75,17 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ route('portefeuille') }}">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
-                <span>Mon portefeuille</span>
+                <span>My Profile</span>
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
+
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ route('commande') }}">
-                <i class="bi bi-check-all"></i>
-                <span>Mes commandes</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ route('commande') }}">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -111,24 +95,28 @@
             </li>
 
             <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <form action="{{ route('logout') }}" method="get">
-              <a class="dropdown-item d-flex align-items-center">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('logoutmagasin') }}">
                 <i class="bi bi-box-arrow-right"></i>
-                <input class="btn btn-pimary" type="submit" value="Deconnecter">
+                <span>Sign Out</span>
               </a>
             </li>
-          </form>
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
-
+@endforeach
       </ul>
-      @endif
-    </nav>
+    </nav><!-- End Icons Navigation -->
+
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
@@ -137,74 +125,47 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-<!-- End Dashboard Nav -->
-      <br>
-      <div class="search-bar">
-        <li class="nav-item">
-          <a class="nav-link " href="{{ route('login') }}">
-            <i class="bi bi-check-circle-fill"></i>
-            <span>Login</span>
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{{ route('entreemagasin') }}">
+            <i class="bi bi-circle"></i><span>Nouveau Entree</span>
           </a>
-      </li>  
-      <br>
-      <li class="nav-item">
-        <a class="nav-link " href="#">
-          <i class="bi bi-search"></i>
-          <span>Recherche multicritere</span>
-        </a>
-      </li>
-      <br>
-        <form class="search-form d-flex align-items-center" method="GET" action="{{ route('multicritere') }}">
-            <div class="row mb-3">
-                <div class="col-sm-12">
-                  <select class="form-select" name="idcategorie" aria-label="Default select example">
-                    <option value="{{ null }}" selected>    Categorie   </option>
-                    @foreach ($categorie as $categorie)
-                      <option value="{{ $categorie->idcategorie }}">{{ $categorie->nomcategorie }}</option>
-                    @endforeach
-                  </select>
-                  <p></p>
-                  <div class="col-sm-12">
-                    <input type="number" min="0" placeholder="Prix minimum" name="prixmin" class="form-control">
-                  </div>
-                  <p></p>
-                  <div class="col-sm-12">
-                    <input type="number" min="0" name="prixmax" placeholder="Prix maximum" class="form-control"> 
-                  </div>
-                  <p></p>
-                  <button type="submit" class="btn btn-primary">Chercher</button>
-                </div>
-            </div>
-        </form>
-        </div>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-cart-fill"></i><span>Panier</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          {{-- <form action="" method="post"> --}}
-        @if(empty($users))
-          @foreach ($cart as $item)
-          <li>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <i class="bi bi-archive"> {{ $item['produit']->nomproduit }}</i>   
-              <p> Prix :{{ $item['quantity'] }}</p>
-              <p> Nombre : {{ $item['produit']->prix }}</p>
-              <input type="hidden" name="idproduit" value="{{ $item['produit']->idproduit }}">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div> 
-          </li>
-          @endforeach
-          <a href="{{ route('validecommande') }}"><button type="button" class="btn btn-primary">Valider le commande</button></a>
-        </ul>
-        @endif
-      </li><!-- End Components Nav -->
-
+        </li>
+        <li>
+          <a href="{{ route('tocentrale') }}">
+            <i class="bi bi-circle"></i><span>Transeferer vers le central</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('vente') }}">
+            <i class="bi bi-circle"></i><span>Vente</span>
+          </a>
+        </li>
+        <li>
+      </ul>
+    </li>
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-<!-- End Page Title -->
+
+    <div class="pagetitle">
+      <h1>Contenu</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
 
     <section class="section dashboard">
       <div class="row">
@@ -212,14 +173,7 @@
         <!-- Left side columns -->
         <div class="col-lg-12">
           @yield('content')
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-<!-- End Budget Report -->
-
-          <!-- Website Traffic -->
-
-          <!-- News & Updates Traffic -->
+        </div>
         </div><!-- End Right side columns -->
 
       </div>

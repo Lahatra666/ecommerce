@@ -2,39 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produit;
+use App\Models\Marque;
+use App\Models\Processeur;
+use App\Models\Laptop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProduitController extends Controller
 {
-    public function addToCart(Request $request)
-{
-    $product = Produit::findOrFail($request->input('idproduit'));
-    $quantity = $request->input('quantity');
-
-    // Check if the cart exists in the session
-    if (!$request->session()->has('cart')) {
-        $request->session()->put('cart', []);
+    public function formajoutproduit(){
+        $marques=Marque::all();
+        $processeurs = Processeur::all();
+        return view('admin.formajoutproduit',
+        [
+            'marques'=>$marques,
+            'processeurs'=>$processeurs
+        ]       
+    );
     }
-
-    $cart = $request->session()->get('cart');
-
-    // Check if the product already exists in the cart
-    if (array_key_exists($product->idproduit, $cart)) {
-        // If the product already exists, update the quantity
-        $cart[$product->idproduit]['quantity'] += $quantity;
-    } else {
-        // If the product does not exist, add it to the cart
-        $cart[$product->idproduit] = [
-            'produit' => $product,
-            'quantity' => $quantity,
-        ];
+    public function store(Request $request){
+        $filename = time() . "." .$request->image->extension();
+        $path = $request->file('image')->storeAs(
+             'produits',
+             $filename,
+             'public'
+         );
+        Laptop::create([
+         'nomlaptop'=>$request->nomlaptop,
+         'reference'=>$request->reference,
+         'prix'=>$request->prix,
+         'idmarque'=>$request->idmarque,
+         'idprocesseur'=>$request->idprocesseur,
+         'ram'=>$request->ram,
+         'dur'=>$request->dur,
+         'image'=>$path
+     ]);
+     return redirect()->back()->withErrors('Reussi');
     }
-
-    $request->session()->put('cart', $cart);
-
-    return redirect()->back()->with('success', 'Product added to cart.');
-}
-
-
+    public function getallproduit(){
+        $produits = DB::table('v_laptop')->select('*')
+        ->get();
+        return view('admin.listeproduit', [
+            'produits'=>$produits
+        ]);
+    }
 }

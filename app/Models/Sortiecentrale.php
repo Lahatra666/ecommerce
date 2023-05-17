@@ -5,16 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Sortiecentrale extends Model
 {
     use HasFactory;
-    protected $primaryKey='iduser';
+    protected $primaryKey='idsortiecentrale';
     public $timestamps = false;
-
-    protected $fillable = [
-        'nameuser',
-        'emailuser',
-        'mdpuser',
-        'idmagasin',
-    ];
+    protected $fillable = ['idlaptop','quantite','date'];
 }

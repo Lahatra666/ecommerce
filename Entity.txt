@@ -1,13 +1,21 @@
-Categories: nomCategorie
-Produits:nomproduit,prix,details
-Stock: idproduit,quantite,unite
+-------------------------VENTE DE LAPTOP------------------------------------
+marque(idmarque,nommarque)
+processeur(idprocesseur,nomidprocesseur)
+produit(nomlaptop,idmarque,reference,idprocesseur,ram,dur)
+admin(idadmin,email)
+magasin(idmagasin,nommagasin,lieu)
+user(idutilisateur,nomuser,emailuser,mdpuser,idmagasin)
 
- Une liste des produits avec catégorie avec une recherche simple et
- multicritère
-    -Categories
-    -Prix min
-    -Prix max
-    
 
- Une fiche de produit avec la quantité en stock
- On peut ajouter les produits en panier (avec ou sans login)
+stock
+
+stockactuel(idlaptop,quantite,date)
+sortiecentrale(idlaptop,quantite,date)
+entreecentrale(idlaptop,quantite,date)
+
+
+stockactuelmagasin(idmagasin,idlaptop,quantite,date)
+sortiemagasin(idmagasin,idlaptop,quantite,date)
+entreemagasin(idmagasin,idlaptop,quantite,date)
+
+1-Login(admin et magasin)----1h

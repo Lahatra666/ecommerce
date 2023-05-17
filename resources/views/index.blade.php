@@ -1,4 +1,4 @@
-@extends('layout.client')
+@extends('layout.default')
 
 @foreach($errors->all() as $error)
     {{ $error }}

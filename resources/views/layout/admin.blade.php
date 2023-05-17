@@ -105,7 +105,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('logoutadmin') }}">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -130,15 +130,53 @@
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Magasin</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('back') }}">
+              <i class="bi bi-circle"></i><span>Liste magasin</span>
+            </a>
+            <a href="{{ route('formajoutmagasin') }}">
+              <i class="bi bi-circle"></i><span>Nouveau magasin</span>
+            </a>
+          </li>
+          <li>
+        </ul>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Produits</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Configuration</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('formajoutmarque') }}">
+              <i class="bi bi-circle"></i><span>Ajout marque</span>
+            </a>
+            <a href="{{ route('formajoutproc') }}">
+              <i class="bi bi-circle"></i><span>Ajout processeur</span>
+            </a>
+          </li>
+          <li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Laptop</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('formajoutproduit') }}">
-              <i class="bi bi-circle"></i><span>Ajout produit</span>
+              <i class="bi bi-circle"></i><span>Ajout laptop</span>
+            </a>
+          </li>
+          <li>
+          <a href="{{ route('listeproduit') }}">
+              <i class="bi bi-circle"></i><span>Liste laptop</span>
             </a>
           </li>
           <li>
@@ -146,17 +184,46 @@
       </li><!-- End Components Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Portefeuille</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Utilisateurs</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('validerdepot') }}">
-              <i class="bi bi-circle"></i><span>Valider les demandes</span>
+            <a href="{{ route('formajoutuser') }}">
+              <i class="bi bi-circle"></i><span>Nouveau Utilisateurs</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('listuser') }}">
+              <i class="bi bi-circle"></i><span>Liste Utilisateurs</span>
             </a>
           </li>
           <li>
         </ul>
       </li>
+    </li><!-- End Components Nav -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{{ route('achat') }}">
+            <i class="bi bi-circle"></i><span>Nouveau Entree</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('stocklaptop') }}">
+            <i class="bi bi-circle"></i><span>Transeferer vers les points de ventes</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('listuser') }}">
+            <i class="bi bi-circle"></i><span>Historique</span>
+          </a>
+        </li>
+        <li>
+      </ul>
+    </li>
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">

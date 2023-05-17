@@ -1,16 +1,33 @@
-INSERT INTO users(nameuser,emailuser,mdpuser) VALUES
-('Mikaelson','k@gmail.com','klaus');
-INSERT INTO users(nameuser,emailuser,mdpuser) VALUES
-('Mikaelson','e@gmail.com','Elijah');
+INSERT INTO admins(emailadmin,mdpadmin) VALUES
+('admin@gmail.com','admin');
 
-   INSERT INTO Categories(nomcategorie) VALUES 
-   ('informatique'),
-   ('sante'),
-   ('nourriturre');
+CREATE VIEW v_laptop as 
+select idlaptop,nomlaptop,prix,reference,ram,dur,image,marques.idmarque,marques.nommarque,processeurs.idprocesseur,processeurs.nomprocesseur
+    from laptops 
+    join marques on laptops.idmarque=marques.idmarque
+    join processeurs on laptops.idprocesseur=processeurs.idprocesseur;    
 
-   INSERT INTO Produits(nomproduit,idcategorie,prix, detail,image) VALUES ('asus f15',1,1000,'edtail','produits/1682102116.png');
-   INSERT INTO Produits(nomproduit,idcategorie,prix, detail,image) VALUES ('smart watch',1,500,'android 10','produits/1682141620.png');
+CREATE VIEW v_user as SELECT iduser,nameuser,emailuser,mdpuser,magasins.idmagasin,magasins.nommagasin,magasins.lieu
+    from users JOIN magasins on users.idmagasin=magasins.idmagasin;
 
-   INSERT INTO Stocks(idproduit,quantite,unite) VALUES (1,20,'piece');
-   INSERT INTO Stocks(idproduit,quantite,unite) VALUES (2,40,'piece');
-   
+CREATE VIEW v_stockslaptop as
+ SELECT laptops.idlaptop,stockactuels.quantite,nomlaptop,prix,reference,ram,dur,image,marques.idmarque,marques.nommarque,processeurs.idprocesseur,processeurs.nomprocesseur
+    from laptops 
+    join marques on laptops.idmarque=marques.idmarque
+    join processeurs on laptops.idprocesseur=processeurs.idprocesseur
+    JOIN stockactuels on stockactuels.idlaptop=laptops.idlaptop;
+
+CREATE VIEW v_stocksuspendu as
+ SELECT laptops.idlaptop,stocksuspendumagasins.quantite,stocksuspendumagasins.idmagasin,stocksuspendumagasins.etat,nomlaptop,prix,reference,ram,dur,image,marques.idmarque,marques.nommarque,processeurs.idprocesseur,processeurs.nomprocesseur
+    from laptops 
+    join marques on laptops.idmarque=marques.idmarque
+    join processeurs on laptops.idprocesseur=processeurs.idprocesseur
+    JOIN stocksuspendumagasins on stocksuspendumagasins.idlaptop=laptops.idlaptop;
+
+CREATE VIEW v_stockslaptopmag as
+ SELECT laptops.idlaptop,stockactuelmagasins.quantite,stockactuelmagasins.idmagasin,nomlaptop,prix,reference,ram,dur,image,marques.idmarque,marques.nommarque,processeurs.idprocesseur,processeurs.nomprocesseur
+    from laptops 
+    join marques on laptops.idmarque=marques.idmarque
+    join processeurs on laptops.idprocesseur=processeurs.idprocesseur
+    JOIN stockactuelmagasins on stockactuelmagasins.idlaptop=laptops.idlaptop;
+    
